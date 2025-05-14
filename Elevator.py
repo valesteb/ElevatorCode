@@ -1,5 +1,5 @@
 # The code for an elevator based on my knowledge in OOP
-Class Elevator:
+class Elevator:
   def __init__(self):
     self.current_floor = 0
 
@@ -10,6 +10,6 @@ Class Elevator:
       print(f"Going to floor {floor}")
       self.current_floor = floor
 
-if __name__ = "__main__":
+if __name__ == "__main__":
   elevator = Elevator()
   elevator.go_to_floor(3)
