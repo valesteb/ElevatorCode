@@ -1,31 +1,67 @@
 # The code for an elevator based on my knowledge in OOP
 class Elevator:
-  def __init__(self, total_floors, current_floor=0):
-    self.current_floor = current_floor
-    self.total_floors = total_floors
-    self.doors_opened = False
-    self.movement = False
+    def __init__(self, total_floors, current_floor=0):
+        self.current_floor =  current_floor
+        
+        self.total_floors = total_floors
+        self.doors_open = False
+        self.moving = False
 
-  #I will now make a function to call the elevator from the floor it's at to the floor where user is requesting it (current_floor)
-  def call_elevator(self, current_floor):
-  #If the elevator is not at the current floor, the function will call the elevator.
-    if self.current_floor != current_floor and self.movement == False:
-        self.movement = True
+    def call_elevator(self, current_floor):
+      if self.current_floor != current_floor:
         print("Calling elevator to current floor")
-        self.current_floor = current_floor
-        self.movement = False #To make sure the elevator stops before opening the doors
-        open_doors()        
+        self.current_floor = current_floor      
+        print ("Elevator is already here")
       else:
-        print ("Elevator is already here") 
-        open_doors()
+        print ("Elevator is already here")
+      
+    def move_to_floor(self, target_floor):
+        if target_floor < 1 or target_floor >= self.total_floors:
+            print("Invalid floor selection.")
+            return
+        
+        if self.doors_open:
+            self.close_doors()  # Make sure doors are closed before moving
 
-  def go_to_floor(self, current_floor):
-    if self.current_floor == current_floor:
-      print(f"Elevator is in floor {current_floor} ")
-    else:
-      print(f"Going to floor {current_floor}")
-      self.current_floor = current_floor
+        print(f"Moving from floor {self.current_floor} to floor {target_floor}...")
+        self.moving = True
+        # Simulate movement
+        self.current_floor = target_floor
+        self.moving = False
+        print(f"Arrived at floor {self.current_floor}.")
+        self.open_doors()  # Automatically open doors at arrival
+        print(f"Current floor: {self.get_current_floor()}")  # Inform user of current floor
 
+    def open_doors(self):
+        if self.moving:
+            print("Cannot open doors while moving.")
+            return
+        
+        if not self.doors_open:
+            self.doors_open = True
+            print("Doors are now open.")
+        else:
+            print("Doors are already open.")
+
+    def close_doors(self):
+        if self.moving:
+            print("Doors are already closed while moving.")
+            return
+
+        if self.doors_open:
+            self.doors_open = False
+            print("Doors are now closed.")
+        else:
+            print("Doors are already closed.")
+
+    def get_current_floor(self):
+        return self.current_floor
+
+# Example usage
 if __name__ == "__main__":
-  elevator = Elevator()
-  elevator.go_to_floor(3)
+    elevator = Elevator(total_floors=10)
+
+    elevator.call_elevator(3)
+   
+
+    elevator.move_to_floor(5)  # Move to 3rd floor (doors will close before moving and open after arriving
