@@ -1,6 +1,6 @@
 # The code for an elevator based on my knowledge in OOP
 class Elevator:
-    def __init__(self, total_floors, current_floor=0):
+    def __init__(self, total_floors, current_floor=1):
         self.current_floor =  current_floor
         
         self.total_floors = total_floors
@@ -8,10 +8,12 @@ class Elevator:
         self.moving = False
 
     def call_elevator(self, current_floor):
+      print(f"Elevator is Currently on the floor: {self.get_current_floor()}")
       if self.current_floor != current_floor:
         print("Calling elevator to current floor")
         self.current_floor = current_floor      
-        print ("Elevator is already here")
+        print ("Elevator is here")
+        self.open_doors()
       else:
         print ("Elevator is already here")
       
@@ -59,9 +61,10 @@ class Elevator:
 
 # Example usage
 if __name__ == "__main__":
-    elevator = Elevator(total_floors=10)
-
-    elevator.call_elevator(3)
-   
-
-    elevator.move_to_floor(5)  # Move to 3rd floor (doors will close before moving and open after arriving
+      elevator = Elevator(total_floors=10)
+    # Call the elevator to the current floor
+      elevator.call_elevator(int(input("Requesting elevator from floor: ")))
+    # Move to a target floor
+      target_floor = int(input("Enter the floor you want to move to: "))  # Get target floor from user
+      elevator.move_to_floor(target_floor)  # Move to the specified floor
+      elevator.call_elevator(int(input("Requesting elevator from floor: ")))
